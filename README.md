@@ -12,6 +12,9 @@ To active envoirment one have to install it ant then type:
 ```bash
 conda activate pres-mc
 ```
+## Method
+
+Electron is drifted in the electric field. Its track is a series of the steps, defined by a `step` parameter. A typical step size (of 0.1 mm) is order of magnitude less than a spatial grid size for the electric field (5 mm). A direction for the step is choosen according to a unit vector parallel to an electric field direction. Electric field components in a beggining of a step are infered by an interpolation procedure (tri-linear interpolation).
 
 ## Available scripts
 
