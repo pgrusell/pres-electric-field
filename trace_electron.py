@@ -53,19 +53,21 @@ hr = ROOT.TH1F("hr","dr", 500, -0.01, 0.99)
 ht = ROOT.TH1F("ht","dr", 500, -0.01, 0.99)
 ht.SetLineColor(2)
 
-tup = []
 
+h_dir = ROOT.TH2F("h_dir",";#phi_{in};#phi_{shift}",100, -pi, pi, 100, -pi, pi)
 
+vdir = ROOT.TVector3()
 
-for ev in progress_bar( range(33) ):
-    phi = 2.*pi*random()
+for ev in progress_bar( range(330) ):
+    phi = 2.*pi*(random()-0.5)
     inX = inR*cos(phi)
     inY = inR*sin(phi)
     pos, track_length = trace(inX, inY, inZ )
     outX, outY = pos.x(), pos.y()
     dr = sqrt((outX-inX)**2+(outY-inY)**2)
-    tup.append( (outX, inX, outY, inY )  )
-#    print( dr )
+    vdir.SetXYZ( outX-inX, outY-inY, 0.)
+    h_dir.Fill( phi, vdir.Phi() )
+    #print( str(outX) + "  " +str(inX) + "  "+ str(outY) + "  "+str(inY) + "     "+str(phi))
     hl.Fill( 1000.*(track_length-inZ) )
     hr.Fill( dr )
     pos, track_length = trace(inX, inY, inZ , field=(False,False,True) )
@@ -76,6 +78,10 @@ for ev in progress_bar( range(33) ):
 
 hr.Draw()
 ht.Draw("same")
+
+h_dir.GetXaxis().SetTitleSize(0.04)
+h_dir.GetYaxis().SetTitleSize(0.04)
+h_dir.Draw("col")
 
 rfile.Close()
 

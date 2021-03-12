@@ -21,12 +21,13 @@ Electron is drifted in the electric field. Its track is a series of the steps, d
  * `create_histo.py` - create `ROOT.TH3F` for field components and store it in a root-file;
  * `test_histo.py` - test that histograms can be readed from root-file;
  * `trace_electron.py` - trace one electron according electric filed and find its X- and Y-positions at the grid-plane (Z=0)
- * 'radial_shift.py' - create 2D-map with a radial shift depending on initial Z- and R-position (phi-averaged).
+ * `radial_shift.py` - create 2D-map with a radial shift depending on initial Z- and R-position (phi-averaged).
 
 ## Results
 
  * No radial shift if Ex and Ey are set to zero (red histo on **dr_z290_R211.png**);
  * Some radial shift for the full field map (see **dr_z290_R211.png**, Rin=211mm, Zin=290mm, phi-averaged);
+ * The direction of this is to the center of TPC ( phi_shift = -phi_in, see **shift_dir.png**);
  * There is strong Rin and Zin pependens (see 2D-png-files).
  
 
