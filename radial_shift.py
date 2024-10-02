@@ -1,9 +1,16 @@
+import ROOT
+from modulo import *
+
 N_events = 33
 
 rfile = ROOT.TFile('histo.root',"READ")
-h3_Ex = rfile["h3_Ex"]
-h3_Ey = rfile["h3_Ey"]
-h3_Ez = rfile["h3_Ez"]
+#h3_Ex = rfile["h3_Ex"]
+#h3_Ey = rfile["h3_Ey"]
+#h3_Ez = rfile["h3_Ez"]
+
+h3_Ex = rfile.Get("h3_Ex")
+h3_Ey = rfile.Get("h3_Ey")
+h3_Ez = rfile.Get("h3_Ez")
 
 from math import pi, sin, cos, tan, sqrt
 from statistics import mean, stdev
@@ -20,11 +27,11 @@ def trace( x, y, z, step = 0.1, field = (True, True, True) ):
         y = pos.y()
         z = pos.z()
         if field[0]:
-            vect.SetX( h3_Ex(x,y,z).value() )
+            vect.SetX(h3_Ex.GetBinContent(h3_Ex.FindBin(x,y,z)))
         if field[1]:
-            vect.SetY( h3_Ey(x,y,z).value() )
+            vect.SetY(h3_Ey.GetBinContent(h3_Ey.FindBin(x,y,z)))
         if field[2]:
-            vect.SetZ( h3_Ez(x,y,z).value() )
+            vect.SetZ(h3_Ez.GetBinContent(h3_Ez.FindBin(x,y,z)))
         track_length += step
         pos  = pos + step*vect.Unit()
 
@@ -52,10 +59,17 @@ for inZi in range( 28 ) :
             pos, track_length = trace(inX, inY, inZ )
             outX, outY = pos.x(), pos.y()
             hr.Fill( sqrt((outX-inX)**2+(outY-inY)**2) )
-        hR[ (inZi+1,inRi+1) ] = VE( hr.mean(),hr.rms()**2 )
-        print("Z="+str(inZ)+"\tR="+str(inR)+"\tdr="+str(hr.mean()))
+        hR.SetBinContent(inZi+1,inRi+1, VE(hr.GetMean(),hr.GetStdDev()**2 ))
+        print("Z="+str(inZ)+"\tR="+str(inR)+"\tdr="+str(hr.GetMean()))
+
+
+
 
 hR.GetZaxis().SetRangeUser(0,1.)
 hR.Draw("colz")
 
+
+
+file = ROOT.TFile("radial_shift.root", "RECREATE")
+hR.Write()
 

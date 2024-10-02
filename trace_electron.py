@@ -1,3 +1,6 @@
+import ROOT
+from modulo import *
+
 #inR = 34.
 #inR = 154.
 inR = 210.
@@ -10,9 +13,15 @@ inZ = 280.
 
 
 rfile = ROOT.TFile('histo.root',"READ")
-h3_Ex = rfile["h3_Ex"]
-h3_Ey = rfile["h3_Ey"]
-h3_Ez = rfile["h3_Ez"]
+
+#h3_Ex = rfile["h3_Ex"]
+#h3_Ey = rfile["h3_Ey"]
+#h3_Ez = rfile["h3_Ez"]
+
+h3_Ex = rfile.Get("h3_Ex")
+h3_Ey = rfile.Get("h3_Ey")
+h3_Ez = rfile.Get("h3_Ez")
+
 
 from math import pi, sin, cos, tan, sqrt
 from statistics import mean, stdev
@@ -29,11 +38,11 @@ def trace( x, y, z, step = 0.1, field = (True, True, True) ):
         y = pos.y()
         z = pos.z()
         if field[0]:
-            vect.SetX( h3_Ex(x,y,z).value() )
+            vect.SetX(h3_Ex.GetBinContent(h3_Ex.FindBin(x,y,z)))
         if field[1]:
-            vect.SetY( h3_Ey(x,y,z).value() )
+            vect.SetY(h3_Ey.GetBinContent(h3_Ey.FindBin(x,y,z)))
         if field[2]:
-            vect.SetZ( h3_Ez(x,y,z).value() )
+            vect.SetZ(h3_Ez.GetBinContent(h3_Ez.FindBin(x,y,z)))
         track_length += step
         pos  = pos + step*vect.Unit()
 
@@ -46,7 +55,7 @@ def trace( x, y, z, step = 0.1, field = (True, True, True) ):
 
 
 hl = ROOT.TH1F("hl","length - z", 200, -0.01, 2.9)
-hn = ROOT.TH1F("hl","length - z", 200, -0.01, 2.9)
+hn = ROOT.TH1F("hn","length - z", 200, -0.01, 2.9)
 hn.SetLineColor(2)
 
 hr = ROOT.TH1F("hr","dr", 500, -0.01, 0.99)
@@ -83,6 +92,7 @@ h_dir.GetXaxis().SetTitleSize(0.04)
 h_dir.GetYaxis().SetTitleSize(0.04)
 h_dir.Draw("col")
 
-rfile.Close()
+#rfile.Close()
 
-
+file = ROOT.TFile("electron_trace.root", "RECREATE")
+h_dir.Write()
