@@ -30,7 +30,7 @@ for ev in progress_bar( range(330) ):
     phi = 2.*pi*(random()-0.5)
     inX = inR*cos(phi)
     inY = inR*sin(phi)
-    pos, track_length = trace(inX, inY, inZ )
+    pos, track_length = trace(inX, inY, inZ, h3_Ex, h3_Ey, h3_Ez)
     outX, outY = pos.x(), pos.y()
     dr = sqrt((outX-inX)**2+(outY-inY)**2)
     vdir.SetXYZ( outX-inX, outY-inY, 0.)
