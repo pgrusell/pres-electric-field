@@ -5,7 +5,7 @@ import scipy.stats as stats
 
 
 def VE(mean, var):
-	std = sqrt(var)	
+	std = sqrt(var)	/ 100
 	return stats.norm.rvs(mean, mean * std)
 
 
