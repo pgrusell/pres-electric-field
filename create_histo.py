@@ -1,5 +1,5 @@
 import ROOT
-from modulo import *
+from module import *
 
 h3_Ex = ROOT.TH3F("h3_Ex","x-componet of electric field;x, mm;y, mm;z, mm",
                     101, -252.5, 252.5, 101,-252.5, 252.5, 61, -2.5, 302.5 )

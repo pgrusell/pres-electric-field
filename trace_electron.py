@@ -1,5 +1,5 @@
 import ROOT
-from modulo import *
+from module import *
 from math import pi, sin, cos, tan, sqrt
 from statistics import mean, stdev
 from random import random
