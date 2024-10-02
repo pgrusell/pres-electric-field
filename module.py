@@ -1,8 +1,15 @@
 import ROOT
+from math import sqrt
+import scipy.stats as stats
 
-def VE(mean, std):
-	return mean
 
+
+def VE(mean, var):
+	std = sqrt(var)
+	return stats.norm.rvs(std)
+
+
+	
 def trace( x, y, z, h3_Ex, h3_Ey, h3_Ez, step = 0.1, field = (True, True, True)):
     track_length = 0.
     pos  = ROOT.TVector3( x, y, z )
