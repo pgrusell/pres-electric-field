@@ -5,8 +5,8 @@ import scipy.stats as stats
 
 
 def VE(mean, var):
-	std = sqrt(var)
-	return stats.norm.rvs(std)
+	std = sqrt(var)	
+	return stats.norm.rvs(mean, mean * std)
 
 
 	
