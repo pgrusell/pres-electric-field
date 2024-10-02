@@ -1,5 +1,7 @@
 import ROOT
 from modulo import *
+from math import pi, sin, cos, tan
+from statistics import mean, stdev
 
 h2_Ex = ROOT.TH2F("h2_Ex","x-componet of electric field;z, mm,;r, mm",
                     61, -2.5, 302.5 ,201,-0.5, 200.5)
@@ -8,15 +10,10 @@ h2_Ey = ROOT.TH2F("h2_Ey","y-componet of electric field;x, mm;y, mm;z, mm",
 h2_Ez = ROOT.TH2F("h2_Ez","z-componet of electric field;x, mm;y, mm;z, mm",
                     61, -2.5, 302.5 ,201,-0.5, 200.5)
 
-
 rfile = ROOT.TFile('histo.root',"READ")
 h3_Ex = rfile.Get("h3_Ex")
 h3_Ey = rfile.Get("h3_Ey")
 h3_Ez = rfile.Get("h3_Ez")
-
-from math import pi, sin, cos, tan
-from statistics import mean, stdev
-
 
 for k in range(1,62):
     z = 5.*(k-1)
@@ -33,7 +30,4 @@ for k in range(1,62):
         h2_Ex.SetBinContent(k,i, VE( mean(vx), 0.0001**2))
         h2_Ey.SetBinContent(k,i, VE( mean(vy), 0.0001**2))
         h2_Ez.SetBinContent(k,i,VE( mean(vz),10**2))
-
-#rfile.Close()
-
 
