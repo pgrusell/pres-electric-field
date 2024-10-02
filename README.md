@@ -18,7 +18,7 @@ Electron is drifted in the electric field. Its track is a series of the steps, d
 
 ## Available scripts
 
- * `create_histo.py` - create `ROOT.TH3F` for field components and store it in a root-file. **The other programs depend on this rootfile, so it's necesary to execute this program firts for everything could work properly.**
+ * `create_histo.py` - create `ROOT.TH3F` for field components and store it in a root-file. **The other programs depend on this rootfile, so it's necesary to execute this program firts for everything to work properly.**
  * `test_histo.py` - test that histograms can be readed from root-file;
  * `trace_electron.py` - trace one electron according electric filed and find its X- and Y-positions at the grid-plane (Z=0). 
  * `radial_shift.py` - create 2D-map with a radial shift depending on initial Z- and R-position (phi-averaged).
